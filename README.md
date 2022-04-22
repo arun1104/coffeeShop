@@ -27,7 +27,7 @@ Expectations:
 
 Assumptions:
 1) There a web app running on a browser which is being used by an employee in the coffee shop. This employee could be the store owner or waiter or cashier or a worker who holds the responsibility to take the order from customer. Let's call it as **Store Persona**.
-2) When a Customer comes to this coffee shop, he/she will interact with the store personal verbally and give orders by looking at some screen where the Menus are displayed.
+2) When a **Customer persona** comes to this coffee shop, he/she will interact with the store personal verbally and give orders by looking at some screen where the Menus are displayed.
 3) Store persona will select the items based on what is being told by Customer persona and once all the items are added, the customer persona will freeze/finalise the order by looking at the order total.
 4) If Customer persona is happy about the total price and the items being added, he/she will do the payment.
 5) After the payment, the store persona will give the customer persona an order unique number say 'y' and ask to wait for 'x' minutes.
