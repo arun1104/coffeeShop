@@ -6,4 +6,5 @@ module.exports = {
   ORDER_ITEMS_COLLECTION: 'orderEvents',
   ORDERS_COLLECTION: 'orders',
   PRODUCT_CATEGORIES_COLLECTION: 'productCategories',
+  EVENT_ACTION_ADD_PRODUCT: 'ADD_PRODUCT',
 };

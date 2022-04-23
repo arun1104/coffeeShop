@@ -98,7 +98,7 @@ paths:
       tags:
       - "Orders"
       summary: "Send events of an order"
-      operationId: "getOrders"
+      operationId: "processOrderEvents"
       produces:
       - "application/json"
       parameters:
