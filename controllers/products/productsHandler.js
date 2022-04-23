@@ -19,7 +19,7 @@ class ProductsExpressHandler {
       res.status(200).send(products);
     } catch (err) {
       logger.error(err);
-      res.status(500).send({ message: 'ClientId or entity does not exists' });
+      res.status(500).send({ message: 'Internal server error' });
     }
   }
 }

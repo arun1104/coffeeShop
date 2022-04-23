@@ -55,6 +55,9 @@ paths:
       tags:
       - "Orders"
       summary: "Details an order"
+      operationId: "getOrders"
+      produces:
+      - "application/json"
       parameters:
       - name: "status"
         in: "query"
@@ -95,6 +98,9 @@ paths:
       tags:
       - "Orders"
       summary: "Send events of an order"
+      operationId: "getOrders"
+      produces:
+      - "application/json"
       parameters:
       - name: "orderId"
         in: "path"
