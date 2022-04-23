@@ -164,6 +164,8 @@ definitions:
          type: string
       totalAmountToBePaid:
         type: "integer"
+      totalTimeToPrepare:
+        type: "integer"
       totalSellingPrice:
         type: "integer"
       totalDiscount:
@@ -206,6 +208,8 @@ definitions:
          properties:
            userId:
              type: "string"
+           deviceId:
+             type: "string"
            quantity:
              type: "integer"
            productId:
@@ -215,6 +219,8 @@ definitions:
            paymentId:
              type: "string"
            amountPaid:
+             type: "integer"
+           timeToPrepareInMins:
              type: "integer"
   OrderItems:
     type: "array"

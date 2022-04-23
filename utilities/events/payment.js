@@ -1,7 +1,7 @@
 'use strict';
 const Logger = require('../logger');
 const constants = require('../constants');
-
+const subscribe = require('../notifications/subscribe');
 class PaymentEvent {
   constructor() {
     this.processEvent = this.processEvent.bind(this);
@@ -24,6 +24,7 @@ class PaymentEvent {
         order.amountPending = 0;
         result = {paymentId: event.paymentId, amountPending: 0,
           amountReceived: event.amountPaid, paymentTakenBy: event.userId, paymentTime: Date.now()};
+        this.subscribeToNotification({deviceId: event.deviceId, timeInMins: order.totalTimeToPrepare, correlationId});
       } else if ((order.amountReceived + event.amountPaid) >= order.totalAmountToBePaid){
         order.status = constants.ORDER_STATUS_PAID;
         order.amountReceived += event.amountPaid;
@@ -31,6 +32,7 @@ class PaymentEvent {
         order.amountPending = 0;
         result = {paymentId: event.paymentId, amountPending: 0,
           amountReceived: order.amountReceived, paymentTakenBy: event.userId, paymentTime: Date.now()};
+        this.subscribeToNotification({deviceId: event.deviceId, timeInMins: order.totalTimeToPrepare, correlationId});
       } else if (event.amountPaid < order.totalAmountToBePaid){
         order.status = constants.ORDER_STATUS_PARTIALLY_PAID;
         order.amountReceived += event.amountPaid;
@@ -44,6 +46,10 @@ class PaymentEvent {
       logger.error(err);
       return { processed: false};
     }
+  }
+
+  async subscribeToNotification(payload){
+    subscribe.sendTimedEventToDevice(payload);
   }
 }
 module.exports = new PaymentEvent();

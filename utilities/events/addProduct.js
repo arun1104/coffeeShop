@@ -11,11 +11,20 @@ class AddProductEvent {
     actionMap.set(actionName, this.processEvent);
   }
 
+  setPreparationTime(quantity, timeToPrepare, order){
+    const totalTimeToPrepare = timeToPrepare * quantity;
+    order.totalTimeToPrepare = !!order.totalTimeToPrepare + totalTimeToPrepare;
+  }
+
   async processEvent(event, order, correlationId) {
     const logger = new Logger(correlationId, 'processEvent-AddProductEvent', 'processEvent');
     logger.info('Entry');
     try {
       const quantity = event.quantity;
+      if (event.timeToPrepareInMins){
+        this.setPreparationTime(quantity, event.timeToPrepareInMins, order);
+      }
+
       const sellingPrice = event.sellingPrice;
       const totalSellingPrice = (quantity * sellingPrice);
       const discountPerQuantity = (event.discountInPercent * 0.01) * sellingPrice;
