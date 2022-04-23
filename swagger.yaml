@@ -267,6 +267,8 @@ definitions:
     properties:
       id:
         type: "string"
+      type:
+        type: "string"
       prodType:
         type: "string"
         enum: ["modifier", "variant","standAlone"]

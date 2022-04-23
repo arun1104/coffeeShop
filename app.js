@@ -1,6 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
-const mongoDBUrl = 'insert_your_database_url_here';
+const mongoDBUrl = 'mongodb+srv://arunrajeevan:TTest11041991@cluster0.alkek.mongodb.net/agnos?retryWrites=true&w=majority';
 mongoose.connect(mongoDBUrl, { useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -25,7 +25,7 @@ app.use(morgan('[:date[clf]] :method :url :status :res[content-length] - :respon
 app.use(cors());
 
 const ymlPath = path.join(__dirname, '.', 'swagger.yaml');
-const swaggerDoc = yaml.safeLoad(fs.readFileSync(ymlPath, 'utf8'));
+const swaggerDoc = yaml.load(fs.readFileSync(ymlPath, 'utf8'));
 const options = {
   controllers: routes,
   useStubs: (process.env.NODE_ENV === 'dev'),
