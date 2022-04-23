@@ -1,6 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
-const mongoDBUrl = 'mongodb+srv://arunrajeevan:TTest11041991@cluster0.alkek.mongodb.net/agnos?retryWrites=true&w=majority';
+const mongoDBUrl = process.env.mongoUrl ||
+'mongodb+srv://arunrajeevan:TTest11041991@cluster0.alkek.mongodb.net/agnos?retryWrites=true&w=majority';
 mongoose.connect(mongoDBUrl, { useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
