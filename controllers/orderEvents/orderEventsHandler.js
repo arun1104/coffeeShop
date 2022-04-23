@@ -11,6 +11,7 @@ class OrderEventsExpressHandler {
     this.db = dbLayer;
     this.processOrderEvents = this.processOrderEvents.bind(this);
   }
+
   async processOrderEvents(req, res) {
     const correlationId = req.correlationId();
     const logger = new Logger(correlationId, 'processOrderEvents-OrderEventsExpressHandler', 'processOrderEvents');
@@ -26,10 +27,13 @@ class OrderEventsExpressHandler {
         id: req.swagger.params.orderId.value,
         totalAmountToBePaid: 0,
         items: [],
+        payments: [],
+        createdBy: eventList[0] ? eventList[0].userId : null,
       };
       eventList.forEach(event => {
         const eventHandler = this.actionMap.get(event.action);
         const result = eventHandler(event.details, order, correlationId);
+        order.updatedBy = event.details.userId;
         logger.info('resultOfEachEvent', result);
         logger.info('orderState', order);
       });

@@ -176,6 +176,8 @@ definitions:
         type: "integer"
       amountRemaining:
         type: "integer"
+      amountPendingToCustomer:
+        type: "integer"
       status:
         type: "string"
         description: "Order Status"
@@ -202,16 +204,18 @@ definitions:
       details:
          type: "object"
          properties:
+           userId:
+             type: "string"
            quantity:
              type: "integer"
            productId:
              type: "string"
            categoryId:
              type: "string"
-           paymentMode:
+           paymentId:
              type: "string"
            amountPaid:
-             type: "string"
+             type: "integer"
   OrderItems:
     type: "array"
     items:

@@ -1,5 +1,6 @@
 'use strict';
 const Logger = require('../../utilities/logger');
+const constants = require('../../utilities/constants');
 class AddProductEvent {
   constructor() {
     this.processEvent = this.processEvent.bind(this);
@@ -23,7 +24,9 @@ class AddProductEvent {
       const totalTax = taxPerQuantity * quantity;
       const amountToPay = totalSellingPrice + totalTax - totalDiscount;
       order.totalAmountToBePaid += amountToPay;
-      const result = {productId: event.productId, quantity, totalSellingPrice, totalTax, totalDiscount, amountToPay};
+      order.status = constants.ORDER_STATUS_IN_PROGRESS;
+      const result = {productId: event.productId, quantity, totalSellingPrice, totalTax, totalDiscount,
+        amountToPay, addedBy: event.userId, addedAt: Date.now()};
       order.items.push(result);
       return { processed: true, result};
     } catch (err) {
