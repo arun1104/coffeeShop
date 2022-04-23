@@ -84,10 +84,10 @@ class DBLayer {
     }
   }
 
-  async updateDoc(options, correlationId, modelName) {
-    const logger = new Logger(correlationId, 'updateDoc-mongodbLayer', 'updateDoc');
+  async updateDoc(options) {
+    const logger = new Logger(options.correlationId, 'updateDoc-mongodbLayer', 'updateDoc');
     try {
-      let model = this.Mongoose.model(modelName);
+      let model = this.Mongoose.model(options.collection);
       let result = await model.findOneAndUpdate(options.query, options.data, { new: true });
       result = JSON.parse(JSON.stringify(result));
       return result;
