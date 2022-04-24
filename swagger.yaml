@@ -1,0 +1,307 @@
+swagger: "2.0"
+info:
+  description: "This is a simple coffee shop service"
+  version: "1.0.0"
+  title: "Coffee Shop Service"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+host: "none"
+basePath: "/v1"
+tags:
+- name: "Products"
+  description: "List of available products"
+- name: "Store"
+  description: "Information about the store"
+- name: "Users"
+  description: "All the personas who operates the store"
+- name: "Orders"
+  description: "All the personas who operates the store"
+
+schemes:
+- "http"
+paths:
+  /products:
+    get:
+      tags:
+      - "Products"
+      summary: "Get all products in the store"
+      description: "Retrieves all the products in the store. Max is 100."
+      operationId: "getProducts"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "start"
+        in: "query"
+        description: "Used for pagination"
+        default: 0
+        type: "number"
+      - name: "count"
+        in: "query"
+        description: "How many records from start index"
+        default: 10
+        type: "number"
+      responses:
+        "200":
+          description: "Retrieved all available products"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Products"
+        "500":
+          description: "Internal server error"
+  /orders:
+    get:
+      tags:
+      - "Orders"
+      summary: "Details an order"
+      operationId: "getOrders"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "status"
+        in: "query"
+        description: "Get orders that have a particular status"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Attributes of an Order"
+        required: true
+        schema:
+          $ref: "#/definitions/Orders"
+      responses:
+        "200":
+          description: "successful operation"
+  /orders/{orderId}:
+    get:
+      tags:
+      - "Orders"
+      summary: "Details an order"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of order"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Attributes of an Order"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        "200":
+          description: "successful operation"
+  /orders/{orderId}/events:
+    post:
+      tags:
+      - "Orders"
+      summary: "Send events of an order"
+      operationId: "processOrderEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of order"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "List of order events"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderEvents"
+      responses:
+        "200":
+          description: "successful operation"
+  /orders/{orderId}/items:
+    get:
+      tags:
+      - "Orders"
+      summary: "Get all order items in an order"
+      description: "Retrieves each item with their selling price and discounts"
+      operationId: "getOrderItems"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of order"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Retrieved all available products"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrderItems"
+        "500":
+          description: "Internal server error"
+definitions:
+  Orders:
+    type: "array"
+    items:
+         $ref: "#/definitions/Order"
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      number:
+        type: "string"
+      createdBy:
+        type: "string"
+      paymentModes:
+        type: "array"
+        items:
+         type: string
+      orderNotes:
+        type: "array"
+        items:
+         type: string
+      totalAmountToBePaid:
+        type: "integer"
+      totalTimeToPrepare:
+        type: "integer"
+      totalSellingPrice:
+        type: "integer"
+      totalDiscount:
+        type: "integer"
+      serviceCharge:
+        type: "integer"
+      orderLevelDiscount:
+        type: "integer"
+      tip:
+        type: "integer"
+      amountRemaining:
+        type: "integer"
+      amountPendingToCustomer:
+        type: "integer"
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "placed"
+        - "accepted"
+        - "waiting"
+        - "cancelled"
+        - "refunded"
+        - "delivered"
+  OrderEvents:
+    type: "array"
+    items:
+         $ref: "#/definitions/OrderEvent"
+  OrderEvent:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      orderId:
+        type: "string"
+      action:
+         type: "string"
+      details:
+         type: "object"
+         properties:
+           userId:
+             type: "string"
+           deviceId:
+             type: "string"
+           quantity:
+             type: "integer"
+           productId:
+             type: "string"
+           categoryId:
+             type: "string"
+           paymentId:
+             type: "string"
+           amountPaid:
+             type: "integer"
+           timeToPrepareInMins:
+             type: "integer"
+  OrderItems:
+    type: "array"
+    items:
+         $ref: "#/definitions/OrderItem"
+  OrderItem:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "id can a product id or category id"
+      type:
+         type: "string"
+         enum: [product,category,combo]
+         description: "will tell us about what kind of item it represent"
+      quantity:
+        type: "integer"
+      sellingPrice:
+         type: "string"
+         description: "selling price of 1 quantity"
+      discountAmount:
+         type: "string"
+         description: "Discount on 1 quantity"
+      totalDiscount:
+         type: "string"
+         description: "discount amount on 'n' quantities"
+      totalSellingPrice:
+         type: "string"
+         description: "selling price of 'n' quantities"
+  ProductCategory:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      userRole:
+        type: "string"
+  Products:
+    type: "object"
+    required:
+    - "name"
+    - "id"
+    - "sellingPrice"
+    - "taxInPercent"
+    - "type"
+    properties:
+      id:
+        type: "string"
+      type:
+        type: "string"
+      prodType:
+        type: "string"
+        enum: ["modifier", "variant","standAlone"]
+      name:
+        type: "string"
+        example: "Cold Coffee"
+      imageUrl:
+        type: "string"
+      tags:
+        type: "array"
+        items:
+         type: string
+      sellingPrice:
+        type: "number"
+        description: "Price without tax"
+      taxInPercent:
+        type: "number"
+        description: "Tax percentage value"
