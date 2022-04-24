@@ -8,8 +8,8 @@ It is mentioned that some products are tax free and some products get a discount
 
 If Cold coffee is ordered with a sandwich (a combo), then there is a discount of 5% in Cold Coffee. Selling price of Cold Coffee = 50 Rs. 10% tax = 5 Rs 5% discount = 2.5 Rs. The Selling Price of Sandwich is 80 Rs and lets say Tax of Sandwich is 10%. 10% tax = 8 Rs.
 
-Total amount the customer has to pay = 50+5-2.5+80+8 = 140.5 Rs. 
-Formula = S.Ps + Taxes - Discounts 
+Total amount the customer has to pay = 50+5-2.5+80+8 = 140.5 Rs.
+Formula = S.Ps + Taxes - Discounts
 Total Amount = (80+50) + (5+8) - (2.5) = 140.5 Rs.
 
 **Expectations:**
@@ -33,3 +33,36 @@ Nodejs,MongoDB and React
 **Questions:**
 
 In the problem statement, it is mentioned that a Customer will be notified. Wanted to know through which medium the notification will be conveyed? I'm assuming that it is a flashy message in the same screen of the store persona or some display device in the store itself.
+
+**What is implemented so far:**
+
+1) Use cases:
+   1.1) Get all products
+   1.2) Send Order Events and get order details as response
+   1.3) Send Payment event and get order status as PAID
+   1.4) On the server, get a console message after order is ready.
+
+2) Artifacts:
+   2.1) Nodejs server in Express framework.
+   2.2) Used Swagger middleware to validate requests.
+   2.3) Used Swagger for API documentation
+   2.4) One sample unit test
+   2.5) Package.json wired with test,run scripts
+   2.6) Postman collection
+   2.7) Architectural Documents
+   2.8) Logger.Correlation Id added across the req cycle
+   2.9) Launch.json wired with debug script.
+
+Notes:
+
+1) Mongo URL is added in the env file as it is a test server given my mLab. In production world, we never commit such secrets to github as they will be configured in github secret store.
+
+2) Have not added any auth support.
+
+3) Have not added unit tests for all the files.
+
+4) No UI has been developed.
+
+5) Cloud deployment/infrastructure code has not been added.
+
+**Time taken to complete the task: 16 hours**
