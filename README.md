@@ -37,21 +37,21 @@ In the problem statement, it is mentioned that a Customer will be notified. Want
 **What is implemented so far:**
 
 1) Use cases:
-   1.1) Get all products
-   1.2) Send Order Events and get order details as response
-   1.3) Send Payment event and get order status as PAID
-   1.4) On the server, get a console message after order is ready.
+   1) Get all products
+   2) Send Order Events and get order details as response
+   3) Send Payment event and get order status as PAID
+   4) On the server, get a console message after order is ready.
 
 2) Artifacts:
-   2.1) Nodejs server in Express framework.
-   2.2) Used Swagger middleware to validate requests.
-   2.3) Used Swagger for API documentation
-   2.4) One sample unit test
-   2.5) Package.json wired with test,run scripts
-   2.6) Postman collection
-   2.7) Architectural Documents
-   2.8) Logger.Correlation Id added across the req cycle
-   2.9) Launch.json wired with debug script.
+   1) Nodejs server in Express framework.
+   2) Used Swagger middleware to validate requests.
+   3) Used Swagger for API documentation
+   4) One sample unit test
+   5) Package.json wired with test,run scripts
+   6) Postman collection
+   7) Architectural Documents
+   8) Logger.Correlation Id added across the req cycle
+   9) Launch.json wired with debug script.
 
 Notes:
 
