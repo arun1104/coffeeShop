@@ -150,6 +150,8 @@ definitions:
     properties:
       id:
         type: "string"
+      storeId:
+        type: "string"
       number:
         type: "string"
       createdBy:
